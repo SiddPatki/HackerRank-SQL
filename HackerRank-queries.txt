@@ -1,0 +1,324 @@
+
+Weather Observation Station 4
+Query the difference between the total number of CITY entries in the table and the number of distinct CITY entries in the table.
+SELECT COUNT(CITY)-COUNT(DISTINCT(CITY)) FROM STATION;
+
+
+Weather Observation Station 5
+Query the two cities in STATION with the shortest and longest CITY names, as well as their respective lengths (i.e.: number of characters in the name). If there is more than one smallest or largest city, choose the one that comes first when ordered alphabetically.
+SELECT CITY,LENGTH(CITY) FROM STATION ORDER BY LENGTH(CITY),CITY LIMIT 1;
+SELECT CITY,LENGTH(CITY) FROM STATION ORDER BY LENGTH(CITY) DESC LIMIT 1;
+
+
+Weather Observation Station 6
+Query the list of CITY names starting with vowels (i.e., a, e, i, o, or u) from STATION. Your result cannot contain duplicates.
+SELECT DISTINCT CITY FROM STATION WHERE ASCII(CITY) IN (65,69,73,79,85);
+
+
+Weather Observation Station 7
+Query the list of CITY names ending with vowels (a, e, i, o, u) from STATION. Your result cannot contain duplicates.
+SELECT DISTINCT CITY FROM STATION WHERE SUBSTRING(CITY,-1) in ('a','e','i','o','u');
+
+
+Weather Observation Station 8
+Query the list of CITY names from STATION which have vowels (i.e., a, e, i, o, and u) as both their first and last characters. Your result cannot contain duplicates.
+
+
+
+Weather Observation Station 9
+Query the list of CITY names from STATION that do not start with vowels. Your result cannot contain duplicates.
+SELECT DISTINCT CITY FROM STATION WHERE NOT SUBSTRING(CITY,1,1) IN ('a','i','e','o','u');
+								OR 
+SELECT DISTINCT CITY FROM STATION WHERE SUBSTRING(CITY,1,1) NOT IN ('a','i','e','o','u');
+
+
+Weather Observation Station 10
+Query the list of CITY names from STATION that do not end with vowels. Your result cannot contain duplicates.
+SELECT DISTINCT CITY FROM STATION WHERE NOT SUBSTRING(CITY,-1) IN ('a','e','i','o','u');
+
+
+Weather Observation Station 11
+Query the list of CITY names from STATION that either do not start with vowels or do not end with vowels. Your result cannot contain duplicates.
+SELECT DISTINCT CITY FROM STATION WHERE (SUBSTRING(CITY,1,1) NOT IN ('a','e','i','o','u')) OR (SUBSTRING(CITY,-1) NOT IN ('a','e','i','o','u'));
+
+
+Weather Observation Station 12
+Query the list of CITY names from STATION that do not start with vowels and do not end with vowels. Your result cannot contain duplicates.
+SELECT DISTINCT CITY FROM STATION WHERE (SUBSTRING(CITY,1,1) NOT IN ('a','e','i','o','u')) AND (SUBSTRING(CITY,-1) NOT IN ('a','e','i','o','u'));
+
+
+Higher Than 75 Marks
+Query the Name of any student in STUDENTS who scored higher than  Marks. Order your output by the last three characters of each name. If two or more students both have names ending in the same last three characters (i.e.: Bobby, Robby, etc.), secondary sort them by ascending ID.
+SELECT Name FROM STUDENTS WHERE Marks>75 ORDER BY SUBSTRING(Name,-3),ID;
+
+
+Employee Names
+Write a query that prints a list of employee names (i.e.: the name attribute) from the Employee table in alphabetical order.
+SELECT name FROM Employee ORDER BY name;
+
+
+Employee Salaries
+Write a query that prints a list of employee names (i.e.: the name attribute) for employees in Employee having a salary greater than  per month who have been employees for less than  months. Sort your result by ascending employee_id.
+SELECT name FROM Employee WHERE salary > 2000 AND months < 10 ORDER BY employee_id;
+
+Type of Triangle
+Write a query identifying the type triangle in the TRIANGLES table using its three side lengths. Output one of the following statements for each record in the table:
+Equilateral,Isosceles,Scalene
+SELECT 
+CASE
+    WHEN (A+B <= C) OR (B+C <= A) OR (A+C <= B) THEN 'Not A Triangle'
+    WHEN A=B AND B=C THEN 'Equilateral'
+    WHEN A <> B AND B <> C AND A <> C THEN 'Scalene'
+    WHEN (A=B AND A <> C) OR (B=C AND B <>A ) OR (A=C AND A<>B) THEN 'Isosceles'
+END
+FROM TRIANGLES;
+
+
+SELECT 
+CASE 
+	WHEN A + B > C AND A+C>B AND B+C>A THEN 
+		CASE 
+			WHEN A = B AND B = C THEN 'Equilateral' 
+			WHEN A = B OR B = C OR A = C THEN 'Isosceles'
+			ELSE 'Scalene'
+		END 
+		ELSE 'Not A Triangle' 
+	END 
+	FROM TRIANGLES;
+
+
+Solve Challenge
+The PADS
+SELECT CONCAT(NAME,'(',SUBSTRING(OCCUPATION,1,1),')') FROM OCCUPATIONS ORDER BY NAME;
+SELECT CONCAT('There are a total of ',COUNT(*),' ',LCASE(OCCUPATION),'s.') FROM OCCUPATIONS GROUP BY OCCUPATION ORDER BY COUNT(OCCUPATION),OCCUPATION;
+
+
+Solve Challenge
+Occupations
+f Score: 30Success Rate: 91.04%
+
+
+Binary Tree Nodes
+You are given a table, BST, containing two columns: N and P, where N represents the value of a node in Binary Tree, and P is the parent of N.
+Write a query to find the node type of Binary Tree ordered by the value of the node. Output one of the following for each node:
+	Root: If node is root node.
+	Leaf: If node is leaf node.
+	Inner: If node is neither root nor leaf node.
+
+SELECT N,
+CASE
+    WHEN P IS NULL THEN 'Root'
+    WHEN N IN (SELECT DISTINCT P FROM BST) THEN 'Inner'
+    ELSE 'Leaf'
+END
+FROM BST
+ORDER BY N;
+
+Solve Challenge
+New Companies
+MediumMax Score: 30Success Rate: 96.18%
+
+
+Solve Challenge
+Revising Aggregations - The Count Function
+EasyMax Score: 10Success Rate: 99.50%
+
+
+Solve Challenge
+Revising Aggregations - The Sum Function
+EasyMax Score: 10Success Rate: 99.64%
+
+
+Solve Challenge
+Revising Aggregations - Averages
+EasyMax Score: 10Success Rate: 99.80%
+
+
+Solve Challenge
+Average Population
+EasyMax Score: 10Success Rate: 99.53%
+
+
+Solve Challenge
+Japan Population
+EasyMax Score: 10Success Rate: 99.85%
+
+
+Solve Challenge
+Population Density Difference
+EasyMax Score: 10Success Rate: 99.84%
+
+
+Solve Challenge
+The Blunder
+EasyMax Score: 15Success Rate: 97.82%
+
+
+Solve Challenge
+Top Earners
+EasyMax Score: 20Success Rate: 97.90%
+
+
+Solve Challenge
+Weather Observation Station 2
+EasyMax Score: 15Success Rate: 99.36%
+
+
+Solve Challenge
+Weather Observation Station 13
+EasyMax Score: 10Success Rate: 99.49%
+
+
+Solve Challenge
+Weather Observation Station 14
+EasyMax Score: 10Success Rate: 99.69%
+
+
+Solve Challenge
+Weather Observation Station 15
+EasyMax Score: 15Success Rate: 98.99%
+
+
+Solve Challenge
+Weather Observation Station 16
+EasyMax Score: 10Success Rate: 99.77%
+
+
+Solve Challenge
+Weather Observation Station 17
+EasyMax Score: 15Success Rate: 99.34%
+
+
+Solve Challenge
+Weather Observation Station 18
+MediumMax Score: 25Success Rate: 98.51%
+
+
+Solve Challenge
+Weather Observation Station 19
+MediumMax Score: 30Success Rate: 98.43%
+
+
+Solve Challenge
+Weather Observation Station 20
+MediumMax Score: 40Success Rate: 96.28%
+
+
+Solve Challenge
+Asian Population
+EasyMax Score: 10Success Rate: 98.42%
+
+
+Solve Challenge
+African Cities
+EasyMax Score: 10Success Rate: 99.37%
+
+
+Solve Challenge
+Average Population of Each Continent
+EasyMax Score: 10Success Rate: 97.93%
+
+
+Solve Challenge
+The Report
+MediumMax Score: 20Success Rate: 96.98%
+
+
+Solve Challenge
+Top Competitors
+MediumMax Score: 30Success Rate: 96.10%
+
+
+Solve Challenge
+Ollivander s Inventory
+MediumMax Score: 30Success Rate: 94.05%
+
+
+Solve Challenge
+Challenges
+MediumMax Score: 30Success Rate: 92.04%
+
+
+Solve Challenge
+Contest Leaderboard
+MediumMax Score: 30Success Rate: 97.43%
+
+
+Solve Challenge
+SQL Project Planning
+MediumMax Score: 40Success Rate: 93.41%
+
+
+Solve Challenge
+Placements
+MediumMax Score: 40Success Rate: 97.86%
+
+
+Solve Challenge
+Symmetric Pairs
+MediumMax Score: 40Success Rate: 95.17%
+
+
+Solve Challenge
+Interviews
+HardMax Score: 50Success Rate: 88.07%
+
+
+Solve Challenge
+15 Days of Learning SQL
+HardMax Score: 50Success Rate: 81.31%
+
+
+Solve Challenge
+Draw The Triangle 1
+EasyMax Score: 25Success Rate: 96.52%
+
+
+Solve Challenge
+Draw The Triangle 2
+EasyMax Score: 25Success Rate: 98.37%
+
+
+Solve Challenge
+Print Prime Numbers
+MediumMax Score: 40Success Rate: 95.48%
+
+
+Solve Challenge
+Revising the Select Query I
+EasyMax Score: 10Success Rate: 96.01%
+
+
+Solved
+Revising the Select Query II
+EasyMax Score: 10Success Rate: 98.82%
+
+
+Solved
+Select All
+EasyMax Score: 10Success Rate: 99.69%
+
+
+Solved
+Select By ID
+EasyMax Score: 10Success Rate: 99.71%
+
+
+Solved
+Japanese Cities Attributes
+EasyMax Score: 10Success Rate: 99.69%
+
+
+Solved
+Japanese Cities Names
+EasyMax Score: 10Success Rate: 99.72%
+
+
+Solved
+Weather Observation Station 1
+EasyMax Score: 15Success Rate: 99.53%
+
+
+Solved
+Weather Observation Station 3
+EasyMax Score: 10Success Rate: 97.47%
