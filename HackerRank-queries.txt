@@ -87,7 +87,7 @@ CASE
 	FROM TRIANGLES;
 
 
-Solve Challenge
+
 The PADS
 SELECT CONCAT(NAME,'(',SUBSTRING(OCCUPATION,1,1),')') FROM OCCUPATIONS ORDER BY NAME;
 SELECT CONCAT('There are a total of ',COUNT(*),' ',LCASE(OCCUPATION),'s.') FROM OCCUPATIONS GROUP BY OCCUPATION ORDER BY COUNT(OCCUPATION),OCCUPATION;
@@ -119,19 +119,16 @@ New Companies
 MediumMax Score: 30Success Rate: 96.18%
 
 
-Solve Challenge
 Revising Aggregations - The Count Function
-EasyMax Score: 10Success Rate: 99.50%
+SELECT COUNT(*) FROM CITY WHERE POPULATION > 100000;
 
 
-Solve Challenge
 Revising Aggregations - The Sum Function
-EasyMax Score: 10Success Rate: 99.64%
+SELECT SUM(POPULATION) FROM CITY WHERE DISTRICT='California';
 
 
-Solve Challenge
 Revising Aggregations - Averages
-EasyMax Score: 10Success Rate: 99.80%
+SELECT AVG(population) FROM city where district='california';
 
 
 Solve Challenge
