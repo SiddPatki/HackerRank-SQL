@@ -116,8 +116,8 @@ ORDER BY N;
 
 Solve Challenge
 New Companies
-MediumMax Score: 30Success Rate: 96.18%
 
+ORDER BY CAST(SUBSTRING(Company.company_code,3) AS UNSIGNED);
 
 Revising Aggregations - The Count Function
 SELECT COUNT(*) FROM CITY WHERE POPULATION > 100000;
@@ -131,24 +131,23 @@ Revising Aggregations - Averages
 SELECT AVG(population) FROM city where district='california';
 
 
-Solve Challenge
 Average Population
-EasyMax Score: 10Success Rate: 99.53%
+Query the average population for all cities in CITY, rounded down to the nearest integer.
+SELECT FLOOR(AVG(population)) FROM city; 
 
 
-Solve Challenge
 Japan Population
-EasyMax Score: 10Success Rate: 99.85%
+Query the sum of the populations for all Japanese cities in CITY. The COUNTRYCODE for Japan is JPN.
+SELECT SUM(population) FROM city WHERE countrycode="JPN";
 
 
-Solve Challenge
 Population Density Difference
-EasyMax Score: 10Success Rate: 99.84%
+Query the difference between the maximum and minimum populations in CITY.
+SELECT MAX(population)-MIN(population) FROM city;
 
 
-Solve Challenge
 The Blunder
-EasyMax Score: 15Success Rate: 97.82%
+SELECT CEILING(AVG(salary)- AVG(REPLACE(salary,'0',''))) FROM EMPLOYEES;
 
 
 Solve Challenge
@@ -156,39 +155,39 @@ Top Earners
 EasyMax Score: 20Success Rate: 97.90%
 
 
-Solve Challenge
+
 Weather Observation Station 2
-EasyMax Score: 15Success Rate: 99.36%
+SELECT REPLACE(FORMAT(SUM(LAT_N),2),',',''),REPLACE(FORMAT(SUM(LONG_W),2),',','') FROM Station;
+SELECT ROUND(SUM(LAT_N),2),ROUND(SUM(LONG_W),2) FROM Station;
 
 
-Solve Challenge
 Weather Observation Station 13
-EasyMax Score: 10Success Rate: 99.49%
-
+SELECT TRUNCATE(SUM(LAT_N),4) FROM Station WHERE LAT_N BETWEEN 38.7880 AND 137.2345;
+(BETWEEN is inclusive of range values)
 
 Solve Challenge
 Weather Observation Station 14
-EasyMax Score: 10Success Rate: 99.69%
+SELECT TRUNCATE(MAX(LAT_N),4) FROM STATION WHERE LAT_N < 137.2345;
 
 
-Solve Challenge
 Weather Observation Station 15
-EasyMax Score: 15Success Rate: 98.99%
+Query the Western Longitude (LONG_W) for the largest Northern Latitude (LAT_N) in STATION that is less than 137.2345.
+SELECT ROUND(LONG_W,4) FROM STATION WHERE LAT_N < 137.2345 ORDER BY LAT_N DESC LIMIT 1;
+SELECT ROUND(LONG_W,4) FROM STATION WHERE LAT_N = (SELECT LAT_N FROM STATION WHERE LAT_N< 137.2345 ORDER BY LAT_N DESC LIMIT 1);
+SELECT ROUND(LONG_W,4) FROM STATION WHERE LAT_N = (SELECT MAX(LAT_N) FROM STATION WHERE LAT_N < 137.2345);
 
 
-Solve Challenge
 Weather Observation Station 16
-EasyMax Score: 10Success Rate: 99.77%
-
+SELECT ROUND(MIN(LAT_N),4) FROM STATION WHERE LAT_N>38.7780;
 
 Solve Challenge
 Weather Observation Station 17
-EasyMax Score: 15Success Rate: 99.34%
+SELECT ROUND(LONG_W,4) FROM STATION WHERE LAT_N = (SELECT MIN(LAT_N) FROM STATION WHERE LAT_N > 38.7780);
 
 
 Solve Challenge
 Weather Observation Station 18
-MediumMax Score: 25Success Rate: 98.51%
+SELECT ROUND((MAX(LAT_N)-MIN(LAT_N))+(MAX(LONG_W)-MIN(LONG_W)),4) FROM STATION;
 
 
 Solve Challenge
