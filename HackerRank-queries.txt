@@ -165,7 +165,7 @@ Weather Observation Station 13
 SELECT TRUNCATE(SUM(LAT_N),4) FROM Station WHERE LAT_N BETWEEN 38.7880 AND 137.2345;
 (BETWEEN is inclusive of range values)
 
-Solve Challenge
+
 Weather Observation Station 14
 SELECT TRUNCATE(MAX(LAT_N),4) FROM STATION WHERE LAT_N < 137.2345;
 
@@ -180,44 +180,77 @@ SELECT ROUND(LONG_W,4) FROM STATION WHERE LAT_N = (SELECT MAX(LAT_N) FROM STATIO
 Weather Observation Station 16
 SELECT ROUND(MIN(LAT_N),4) FROM STATION WHERE LAT_N>38.7780;
 
-Solve Challenge
+
 Weather Observation Station 17
 SELECT ROUND(LONG_W,4) FROM STATION WHERE LAT_N = (SELECT MIN(LAT_N) FROM STATION WHERE LAT_N > 38.7780);
 
 
-Solve Challenge
 Weather Observation Station 18
 SELECT ROUND((MAX(LAT_N)-MIN(LAT_N))+(MAX(LONG_W)-MIN(LONG_W)),4) FROM STATION;
 
 
-Solve Challenge
 Weather Observation Station 19
-MediumMax Score: 30Success Rate: 98.43%
+SELECT FORMAT(POWER((POWER(MAX(LONG_W)-MIN(LONG_W),2) + POWER(MAX(LAT_N)-MIN(LAT_N),2) ),0.5),4) FROM STATION;
 
 
-Solve Challenge
 Weather Observation Station 20
-MediumMax Score: 40Success Rate: 96.28%
+SET @rowindex := -1;
+ 
+SELECT
+   ROUND(AVG(s.LAT_N),4) as Median 
+FROM
+   (SELECT @rowindex:=@rowindex + 1 AS rowindex,
+           STATION.LAT_N AS LAT_N
+    FROM STATION
+    ORDER BY STATION.LAT_N) AS s
+WHERE
+s.rowindex IN (FLOOR(@rowindex / 2), CEIL(@rowindex / 2));
 
 
-Solve Challenge
+-- JOIN (USING) / (ON) the primary and foreign key of connecting column.
+-- If the columns in both the tables have the same name.eg- ORDERS.customerid and CUSTOMER.customerid are matching key columns.
+	-- Use (USING) to join the 2 tables.
+-- The key name could be diffrent on both tables.eg- CITY.CountryCode and COUNTRY.Code are matching key columns.
+	-- Use (ON) to join the 2 tables.
+-- Add Tablename before ambiguous columns
+-- Use alias (AS) instead of Table names to shorten the query.
+
 Asian Population
-EasyMax Score: 10Success Rate: 98.42%
+SELECT SUM(CITY.POPULATION)
+FROM CITY
+JOIN COUNTRY ON CITY.COUNTRYCODE = COUNTRY.CODE
+WHERE COUNTRY.CONTINENT='Asia';
 
 
-Solve Challenge
 African Cities
-EasyMax Score: 10Success Rate: 99.37%
+SELECT CITY.NAME
+FROM CITY
+JOIN COUNTRY ON CITY.CountryCode=COUNTRY.Code
+WHERE CONTINENT = 'Africa';
 
 
-Solve Challenge
 Average Population of Each Continent
-EasyMax Score: 10Success Rate: 97.93%
+SELECT COUNTRY.Continent, FLOOR(AVG(CITY.Population))
+FROM CITY
+JOIN COUNTRY ON CITY.CountryCode = COUNTRY.Code
+GROUP BY COUNTRY.Continent;
 
 
-Solve Challenge
 The Report
-MediumMax Score: 20Success Rate: 96.98%
+SELECT IF(GRADE < 8, NULL, NAME) AS Name, GRADE, MARKS
+FROM STUDENTS JOIN GRADES
+WHERE MARKS BETWEEN MIN_MARK AND MAX_MARK
+ORDER BY GRADE DESC, NAME
+
+SELECT 
+	CASE 
+		WHEN G.Grade<8 THEN NULL 
+		ELSE S.Name 
+		END AS Name,
+	G.Grade, S.Marks 
+	FROM Students S
+	INNER JOIN Grades G ON S.Marks BETWEEN G.Min_Mark and G.Max_Mark 
+	ORDER BY G.Grade DESC,Name,Marks
 
 
 Solve Challenge
@@ -283,38 +316,3 @@ MediumMax Score: 40Success Rate: 95.48%
 Solve Challenge
 Revising the Select Query I
 EasyMax Score: 10Success Rate: 96.01%
-
-
-Solved
-Revising the Select Query II
-EasyMax Score: 10Success Rate: 98.82%
-
-
-Solved
-Select All
-EasyMax Score: 10Success Rate: 99.69%
-
-
-Solved
-Select By ID
-EasyMax Score: 10Success Rate: 99.71%
-
-
-Solved
-Japanese Cities Attributes
-EasyMax Score: 10Success Rate: 99.69%
-
-
-Solved
-Japanese Cities Names
-EasyMax Score: 10Success Rate: 99.72%
-
-
-Solved
-Weather Observation Station 1
-EasyMax Score: 15Success Rate: 99.53%
-
-
-Solved
-Weather Observation Station 3
-EasyMax Score: 10Success Rate: 97.47%
